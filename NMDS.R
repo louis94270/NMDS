@@ -1,26 +1,26 @@
 
-rm(list=ls())
+rm(list = ls())
 library(tidyverse)
 library(ggplot2)
 library(wesanderson)
 library(vegan)
 
 #ggplot theme
-mytheme <- theme(axis.line = element_line(linetype = "solid"), 
-                 axis.line.x = element_line(color = "black", size = 0.7), 
-                 axis.line.y = element_line(color = "black", size = 0.7), 
-                 axis.ticks = element_line(colour = "black"), 
-                 panel.grid.major = element_line(linetype = "blank"), 
-                 panel.background = element_rect(fill = NA), 
-                 legend.key = element_rect(fill = NA), 
-                 legend.background = element_rect(fill = NA), 
-                 legend.text=element_text(size=13),
-                 legend.title=element_text(size=13),
-                 #legend.position = "bottom", 
+mytheme <- theme(axis.line = element_line(linetype = "solid"),
+                 axis.line.x = element_line(color = "black", size = 0.7),
+                 axis.line.y = element_line(color = "black", size = 0.7),
+                 axis.ticks = element_line(colour = "black"),
+                 panel.grid.major = element_line(linetype = "blank"),
+                 panel.background = element_rect(fill = NA),
+                 legend.key = element_rect(fill = NA),
+                 legend.background = element_rect(fill = NA),
+                 legend.text = element_text(size = 13),
+                 legend.title = element_text(size = 13),
+                 #legend.position = "bottom",
                  #legend.direction = "horizontal",
-                 axis.title=element_text(size=17,face="bold"),
-                 axis.text.x = element_text( size = 15),
-                 axis.text.y = element_text( size = 15))
+                 axis.title = element_text(size = 17, face = "bold"),
+                 axis.text.x = element_text(size = 15),
+                 axis.text.y = element_text(size = 15))
 
 path_results <- "path/to/your/result/folder"
 
@@ -51,14 +51,14 @@ spp.scrs <- as.data.frame(scores(dune.spp.fit, display = "vectors"))
 spp.scrs <- cbind(spp.scrs, Species = rownames(spp.scrs))
 spp.scrs <- cbind(spp.scrs, pval = dune.spp.fit$vectors$pvals)
 #subset data to show species significant at 0.05
-sig.spp.scrs <- subset(spp.scrs, pval<=0.05) 
+sig.spp.scrs <- subset(spp.scrs, pval <= 0.05)
 
 head(spp.scrs)
 
 #
 # function for ellipses
 veganCovEllipse <- function (cov, center = c(0, 0), scale = 1, npoints = 100) {
-  theta <- (0:npoints) * 2 * pi/npoints
+  theta <- (0:npoints) * 2 * pi / npoints
   Circle <- cbind(cos(theta), sin(theta))
   t(center + scale * t(Circle %*% chol(cov)))
 }
